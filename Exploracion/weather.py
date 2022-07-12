@@ -103,6 +103,7 @@ def get_weather_Month(API_KEY_LIST,borough,year,mont,freq=1,out_dir="./"):
                     f.write(header+'\n')
                 f.write(body+"\n")
                 print(f"success: {file_name} Created successfully!!")
+            break
         else:
             print("Burned API_KEY:",API_KEY,response.text)
 
