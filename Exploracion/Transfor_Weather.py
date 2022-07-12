@@ -1,4 +1,5 @@
 import pandas as pd
+from funciones import read_data
 
 data1= pd.read_csv("..\Data\weather_Bronx_2018-01.csv")
 data2= pd.read_csv("..\Data\weather_Brooklyn_2018-01.csv")
@@ -19,5 +20,7 @@ def createDummies(df, var_name):
 
 data=createDummies(data,"Conditions")
 
-data.to_csv("..\Data\Weather.csv", index=True)
+data.to_csv("..\Data\Weather.csv", index=False)
 
+data=read_data("..\Data\yellow_tripdata_2018-01.parquet")
+data.to_csv("..\Data\Taxis.csv", index=False)
