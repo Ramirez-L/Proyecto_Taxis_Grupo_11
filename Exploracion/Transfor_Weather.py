@@ -23,4 +23,4 @@ data=createDummies(data,"Conditions")
 data.to_csv("..\Data\Weather.csv", index=False)
 
 data=read_data("..\Data\yellow_tripdata_2018-01.parquet")
-data.to_csv("..\Data\Taxis.csv", index=False)
+data.to_parquet("..\Data\Taxis.parquet", index=False)
