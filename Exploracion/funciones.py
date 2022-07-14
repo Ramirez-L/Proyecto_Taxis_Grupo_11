@@ -56,4 +56,7 @@ def read_data(file):
     data.drop("airport_fee", axis=1, inplace=True)
     print("_____________________________")
 
+    data.drop(data[(data["DOLocationID"].isin([1,264,265])) | (data["PULocationID"].isin([1,264,265]))].index,axis=0, inplace=True)
+    data.drop(data[data["RatecodeID"]==99].index,axis=0, inplace=True)
+
     return data
