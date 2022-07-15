@@ -3,7 +3,6 @@ from datetime import datetime, timedelta, timezone
 import pandas as pd
 import requests
 
-# API_KEY= "EPVYJQV9TTNYYN52QNYRLEL58" 
 API_KEY_LIST= [
     "VBF8WCN29MQP5BNCBQ5QG5U7E",
     "EPVYJQV9TTNYYN52QNYRLEL58",
@@ -13,28 +12,32 @@ API_KEY_LIST= [
     "WPDFT7FX9KGMSAZG9YMQMRSLB",
 ]
 
-coords={
-    # "EWRS":{
-    #     "lat":40.6895314,
-    #     "lon":-74.17446239999998,},
+BOROUGHS=pd.DataFrame({
     "Manhattan":{
+        "id_borough":1,
         "lat":40.776676,
         "lon":-73.971321,},
-    "Queens":{
-        "lat":40.742054,
-        "lon":-73.769417,},
+
     "Brooklyn":{
+        "id_borough":2,
         "lat":40.650002,
         "lon":-73.949997,},
+
     "Bronx":{
+        "id_borough":3,
         "lat":40.837048,
         "lon":-73.865433,},
-    "Staten Island":{
+        
+    "Queens":{
+        "id_borough":4,
+        "lat":40.742054,
+        "lon":-73.769417,},
+
+    "Staten_Island":{
+        "id_borough":5,
         "lat":40.579021,
         "lon":-74.151535,},    
-}
-
-df_boroughs=pd.DataFrame(coords)
+})
 
 
 def date_range(start, end,freq="D"):
@@ -71,8 +74,8 @@ def get_weather_Day(API_KEY,borough,date,freq=1):
     formatDate="%Y-%m-%dT%H:%M:%S"
     response=get_weather(
         API_KEY,
-        df_boroughs[borough].lat,
-        df_boroughs[borough].lon,
+        BOROUGHS[borough].lat,
+        BOROUGHS[borough].lon,
         start=start.strftime(formatDate),
         end=end.strftime(formatDate),
         freq=freq)
@@ -88,13 +91,13 @@ def get_weather_Month(API_KEY_LIST,borough,year,mont,freq=1,out_dir="./"):
     for API_KEY in API_KEY_LIST:
         response=get_weather(
             API_KEY,
-            df_boroughs[borough].lat,
-            df_boroughs[borough].lon,
+            BOROUGHS[borough].lat,
+            BOROUGHS[borough].lon,
             start=start.strftime(formatDate),
             end=end.strftime(formatDate),
             freq=freq)
         if response.text.count("\n")>1:
-            file_name=f"weather_{borough}_{year}-{mont}.csv"
+            file_name=f"weather_{borough}_{year}-{mont}.csv".replace(" ","_")
             header,body=response.text.split('\n',1)
             
             with open(out_dir+file_name,"a+") as f:
@@ -121,7 +124,7 @@ def get_weather_Month_daybyday(API_KEY_LIST,borough,year,mont,out_dir="./"):
             response = get_weather_Day(API_KEY,borough,day)
 
             if response.text.count("\n")>1:
-                file_name=f"weather_{borough}_{day.strftime('%Y-%m')}.csv"
+                file_name=f"weather_{borough}_{day.strftime('%Y-%m')}.csv".replace(" ","_")
                 header,body=response.text.split('\n',1)
                 
                 with open(out_dir+file_name,"a+") as f:
@@ -143,7 +146,7 @@ def get_weather_Month_daybyday(API_KEY_LIST,borough,year,mont,out_dir="./"):
 
 if __name__=="__main__":
 
-    for borough in df_boroughs.columns:
-        get_weather_Month(API_KEY_LIST,borough,2018,3,out_dir="../Data/")
+    for borough in BOROUGHS.columns:
+        get_weather_Month(API_KEY_LIST,borough,2018,3,out_dir="../Data")
 
 
