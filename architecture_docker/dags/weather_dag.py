@@ -25,7 +25,7 @@ dag_weather = DAG(
     default_args=default_args,
     description='Call API weather to get weather data and load in tha database',
     schedule_interval="@monthly",
-    max_active_runs=5,
+    max_active_runs=2,
     catchup=True,
     tags=['Extract','Transfrom','Load'],
 )

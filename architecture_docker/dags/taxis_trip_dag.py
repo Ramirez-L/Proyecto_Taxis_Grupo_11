@@ -10,7 +10,7 @@ from taxis_etl import (
     load_trip,
 )
 from cfg import (
-    BASE_URL_TAXIS
+    BATCH_SIZE_TRIP,
 )
 
 default_args = {
@@ -30,7 +30,7 @@ dag_taxis_trip = DAG(
     description='ETL for trips of yellow taxis of New york',
     schedule_interval="@monthly",
     catchup=True,
-    max_active_runs=5,
+    max_active_runs=1,
     tags=['Extract','Transfrom','Load'],
 )
 
@@ -60,7 +60,7 @@ def _task_transform_trip(year: str,month: str,out_dir:str,ti):
         f.write(','.join(header)+'\n')
 
     pf_taxis = ParquetFile(out_dir+parquet_file)
-    for i,batch in enumerate(pf_taxis.iter_batches(batch_size=100000)):
+    for i,batch in enumerate(pf_taxis.iter_batches(batch_size=BATCH_SIZE_TRIP)):
         print("Transform Batch",i,"."*50)
         data = transform_trip(batch.to_pandas())
         data.to_csv(out_dir+csv_clean_file, index=False,header=False,mode="a+")
@@ -76,7 +76,7 @@ def _task_load_trip(out_dir:str,ti):
 
     csv_clean_file=ti.xcom_pull(key='csv_clean_file',task_ids="transform_trip")
 
-    with pd.read_csv(out_dir+csv_clean_file, chunksize=100000) as reader:
+    with pd.read_csv(out_dir+csv_clean_file, chunksize=BATCH_SIZE_TRIP) as reader:
         for i, batch in enumerate(reader):
             print("Loading Batch",i,"."*50)
             load_trip(batch)
