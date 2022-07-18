@@ -91,13 +91,9 @@ def get_weather_Month(API_KEY_LIST,borough,year,month,freq=1,out_dir="./"):
             freq=freq)
         if response.text.count("\n")>1:
             file_name=f"weather_{borough}_{year}-{month}.csv".replace(" ","_")
-            header,body=response.text.split('\n',1)
-            
-            with open(out_dir+file_name,"a+") as f:
-                f.seek(0)
-                if f.readline()!=header+'\n':
-                    f.write(header+'\n')
-                f.write(body+"\n")
+        
+            with open(out_dir+file_name,"w+") as f:
+                f.write(response.text)
                 print(f"success: {file_name} Created successfully!!")
             break
         else:
