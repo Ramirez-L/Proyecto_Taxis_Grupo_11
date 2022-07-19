@@ -62,7 +62,7 @@ def _task_transform_trip(year: str,month: str,out_dir:str,ti):
     pf_taxis = ParquetFile(out_dir+parquet_file)
     for i,batch in enumerate(pf_taxis.iter_batches(batch_size=BATCH_SIZE_TRIP)):
         print("Transform Batch",i,"."*50)
-        data = transform_trip(batch.to_pandas())
+        data = transform_trip(batch.to_pandas(),year,month)
         data.to_csv(out_dir+csv_clean_file, index=False,header=False,mode="a+")
 
     if os.path.exists(out_dir+parquet_file):

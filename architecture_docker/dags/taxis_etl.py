@@ -6,6 +6,7 @@ from sqlalchemy_utils import database_exists, create_database
 import datetime
 from datetime import timedelta
 from time import time
+from dateutil.relativedelta import relativedelta
 import weather_utils  
 import os
 from urllib import request
@@ -146,13 +147,17 @@ def extract_trip(year:str, month:str,out_dir:str="../Data/") -> str:
     request.urlretrieve(URL, out_dir+parquet_file)
     return parquet_file
 
-def transform_trip(data):
+def transform_trip(data,year=None,month=None):
 
-    #Dropeamos valores fuera de rango en el tiempo
-    data.drop(data[data["tpep_dropoff_datetime"]<datetime.datetime(year=2018, month=1, day=1,hour=0,minute=0,second=0)].index, axis=0, inplace=True)
-    data.drop(data[data["tpep_pickup_datetime"]<datetime.datetime(year=2018, month=1, day=1,hour=0,minute=0,second=0)].index, axis=0, inplace=True)
-    print("Valores fuera de rango en el tiempo borrados")
-    print("_____________________________")
+    if  year and month:
+        #Dropeamos valores fuera de rango en el tiempo
+        data.drop(data[data["tpep_pickup_datetime"]<datetime.datetime(year=year, month=month, day=1)].index, axis=0, inplace=True)
+        data.drop(data[data["tpep_dropoff_datetime"]<datetime.datetime(year=year, month=month, day=1)].index, axis=0, inplace=True)
+
+        data.drop(data[data["tpep_pickup_datetime"]>datetime.datetime(year,month,1)+relativedelta(months=1)].index, axis=0, inplace=True)
+        data.drop(data[data["tpep_dropoff_datetime"]>datetime.datetime(year,month,1)+relativedelta(months=1)].index, axis=0, inplace=True)
+        print("Valores fuera de rango en el tiempo borrados")
+        print("_____________________________")
 
     # Agregar nueva columna - Tiempo de Viaje 
     print("crear columna")
