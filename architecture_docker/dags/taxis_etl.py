@@ -150,6 +150,7 @@ def extract_trip(year:str, month:str,out_dir:str="../Data/") -> str:
 def transform_trip(data,year=None,month=None):
 
     if  year and month:
+        year,month=int(year),int(month)
         #Dropeamos valores fuera de rango en el tiempo
         data.drop(data[data["tpep_pickup_datetime"]<datetime.datetime(year=year, month=month, day=1)].index, axis=0, inplace=True)
         data.drop(data[data["tpep_dropoff_datetime"]<datetime.datetime(year=year, month=month, day=1)].index, axis=0, inplace=True)
