@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 import pandas as pd
 import requests
 
+from cfg import API_KEY_LIST
 
 BOROUGHS=pd.DataFrame({
     "Manhattan":{
@@ -77,7 +78,9 @@ def get_weather_Day(API_KEY,borough,date,freq=1):
 
 def get_weather_Month(API_KEY_LIST,borough,year,month,freq=1,out_dir="./"):
     start = datetime(year,month,1)
-    end = datetime(year,month,1)+relativedelta(months=1)-timedelta(days=1)
+    end = datetime(year,month,1,23)+relativedelta(months=1)-timedelta(days=1)
+    print("start: ",start)
+    print("end: ",end)
 
     formatDate="%Y-%m-%dT%H:%M:%S"
 

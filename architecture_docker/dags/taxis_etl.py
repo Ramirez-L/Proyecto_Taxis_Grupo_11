@@ -157,7 +157,7 @@ def transform_trip(data,year=None,month=None):
 
         data.drop(data[data["tpep_pickup_datetime"]>datetime.datetime(year,month,1)+relativedelta(months=1)].index, axis=0, inplace=True)
         data.drop(data[data["tpep_dropoff_datetime"]>datetime.datetime(year,month,1)+relativedelta(months=1)].index, axis=0, inplace=True)
-        print("Valores fuera de rango en el tiempo borrados")
+        print("Valores fuera de rango en el tiempo borrados") 
         print("_____________________________")
 
     # Agregar nueva columna - Tiempo de Viaje 
