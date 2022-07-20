@@ -164,3 +164,100 @@ El valor en **total_amount** debe ser mayor o igual que en **fare_amount**.
 ```python
 if **total_amount < fare_amount =** DROP
 ```
+<br>
+
+# Carga Incremental de los datos
+
+Para el proceso de cargar incremental de los meses sucesivos hemos decidido usar los servicios de airflow, ya que con esta tecnologia podemos ejecutar en paso a paso y en intervalos de tiempo, la extraccion, carga y transformacionn de nuestros datos.
+<br>
+
+Ademas crearemos una base de datos en postgresql que conectaremos con airflow. 
+<br>
+
+Paso 1: Creamos el esquema.
+<br>
+
+Paso 2: Cargamos las tablas Vendor, Rate, Payment, Borough y Location (Tablas que seran creadas y cargadas una sola vez)
+
+<br>
+
+![Tarifas - Propinas](../Reporte/_src/airflow1.jpeg)
+
+![Tarifas - Propinas](../Reporte/_src/airflow2.jpeg)
+
+<br>
+Paso 3: Luego se ejecutan dos procesos el ETL_taxi_trips y ETL_weather.
+<br>
+
+![Tarifas - Propinas](../Reporte/_src/airflow3.jpeg)
+
+Paso 4: El proceso ETL_taxis_trips cuenta con 3 etapas, extraccion de los datos desde la pagina (extrac_trip), transformacion de los datos con python (transform_trip) y la carga a los datos a la base en postgressql (load_trip).
+
+<br>
+
+![Tarifas - Propinas](../Reporte/_src/airflow4.jpeg)
+
+Paso 5: El proceso ETL_weather cuenta con 2 etapas, extraccion y transformacion de los datos desde la pagina (extrac_transform_weather)y la carga a los datos a la base en postgressql (load_weather).
+
+<br>
+
+![Tarifas - Propinas](../Reporte/_src/airflow5.jpeg)
+
+<br>
+
+![Tarifas - Propinas](../Reporte/_src/airflow6.jpeg)
+
+<br>
+
+![Tarifas - Propinas](../Reporte/_src/airflow7.jpeg)
+
+
+
+<br>
+
+# Analisis en Power BI
+
+En esta seccion realizaremos un analisis grafico de los datos y buscaremos obtener algunas conclusiones sobre pasos de inversion a seguir.
+
+<br>
+Observamos que entre los meses de Enero-Febrero-Marzo tenemos 26 millones de regristros con 4000 viajes por dia. Los viajes estan distribuidos en 5 zonas, la duracion promedio del viaje es de 15 min aprox y las tarifas promedio son de $12.14.
+
+<br>
+
+A la hora de analizar una posible incursion en el mercado de taxis, creemos que el dato mas importante es la ubicacion. Mas de la mitad de los taxis salen de la zona de Manhattan. 
+Esta region tiene 12 veces mas viajes que las otras 4 juntas y genera 4.5 veces los ingresos de las otras 4 zonas sumadas. Por lo tanto si hay una ubicacion donde es recomendable para una empresa empezar es en Manhattan. 
+
+<br>
+
+![Tarifas - Propinas](../Reporte/_src/powerbi2.jpg)
+
+<br>
+
+Ademas es importante considerar los horarios de trabajo de la empresa. Nosotros encontramos importante la franja horaria desde las 8 am hasta las 11 pm, ya que es el tiempo donde mas requerimientos de taxis habran y podra ser mas aprovechable.
+Considerando tambien que un dia donde los consumos de taxis en cantidad y dinero son menores es el dia Domingo.
+
+<br>
+
+![Tarifas - Propinas](../Reporte/_src/powerbi3.jpg)
+
+<br>
+
+En el analisis por zonas podemos observar nuevamente el amplio margen de ventaja entre Manthattan y el resto. Ademas podemos notar que las condiciones climaticas no suelen tener un fuerte impacto en la demanda de taxis.
+
+<br>
+
+![Tarifas - Propinas](../Reporte/_src/powerbi4.jpg)
+
+<br>
+
+En esta seccion vemos la importancia del aceptar el pago con tarjeta, casi un requisito excluyente. De no ser asi podrian ver muy mermados los ingresos de la empresa. A la hora de analizar los tipos tarifas, consideramos que es importante tener consideraciones para viajes al aeropuerto, estos casos seran por amplian diferencia escasos.
+
+<br>
+
+![Tarifas - Propinas](../Reporte/_src/powerbi5.jpg)
+
+A la hora de analizar la situacion por clima vemos una clara tendencia. La mayor cantidad de taxis son requeridos cuando las temperatureas oscilan entre los 30ºF y 45ºF. Pero cuando salimos de ese rango de temperatura los valores de uso de taxis descienden mucho, manteniendose relvantes en los rangos 15ºF-30ºF y 45ºF-60ºF. Pero volviendose casi insignificantes en los rangos menores de 15ºF o mayores de 60ºF.
+
+<br>
+
+![Tarifas - Propinas](../Reporte/_src/powerbi1.jpeg)

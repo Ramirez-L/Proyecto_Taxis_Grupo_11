@@ -1,7 +1,8 @@
 from fileinput import filename
 import pandas as pd
 import sqlalchemy
-from datetime import timedelta
+import datetime
+from datetime import timedelta, datetime
 from time import time
 import weather 
 import os
@@ -158,6 +159,13 @@ def extract_transform_trip(file):
     data = pd.read_parquet(ruta)
     print("lo leyo")
     print("_____________________________")
+
+    #Dropeamos valores fuera de rango en el tiempo
+    data.drop(data[data["tpep_dropoff_datetime"]<datetime.datetime(year=2018, month=1, day=1,hour=0,minute=0,second=0)].index, axis=0, inplace=True)
+    data.drop(data[data["tpep_pickup_datetime"]<datetime.datetime(year=2018, month=1, day=1,hour=0,minute=0,second=0)].index, axis=0, inplace=True)
+    print("Valores fuera de rango en el tiempo borrados")
+    print("_____________________________")
+
 
     # Agregar nueva columna - Tiempo de Viaje 
     print("crear columna")
