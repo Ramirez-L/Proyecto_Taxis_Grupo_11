@@ -18,7 +18,7 @@ Se ha creado una columna llamada "Tiempo Viaje" para conocer si hay valores que 
 
 ## Tiempo de Viaje - Sin Outliers
 
-![Tiempo de Viaje, sin outliers](../Reporte/_src/tiempo_viaje_s_sin_outliers.png)
+![Tiempo de Viaje sin outliers](../Reporte/_src/tiempo_viaje_s_sin_outliers.png)
 
 Otra observación ha sido la distancia de viaje o "trip_distance" donde los valores outlier o superiores a 25.000 millas fueron considerados como errores en el registro, y fueron convertidos a Cero. Porque son distancias superiores, por ejemplo un registro que tiene mas de 175.000 millas recorridas.
 
