@@ -170,7 +170,7 @@ if **total_amount < fare_amount =** DROP
 
 <br>
 
-![Stack tecno](../Reporte/_src/arquitectura.jpg)
+![Stack tecno](../Reporte/_src/Linode_-_Cloud_.png)
 
 <br>
 
