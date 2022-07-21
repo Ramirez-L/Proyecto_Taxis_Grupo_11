@@ -268,4 +268,4 @@ A la hora de analizar la situacion por clima vemos una clara tendencia. La mayor
 
 <br>
 
-![Tarifas - Propinas](../Reporte/_src/powerbi1.jpeg)
+![Tarifas - Propinas](../Reporte/_src/powerbi1.jpeg) 
