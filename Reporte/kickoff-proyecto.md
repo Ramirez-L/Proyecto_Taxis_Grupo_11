@@ -27,7 +27,7 @@ Debido a que sería una unidad de negocio nueva, se pretende hacer un análisis 
 
 ## Solución propuesta
 
-![Stack tecnológico.png](_src/Stack_tecnologico.png)
+![Stack tecnológico.png](_src/arquitectura.jpg)
 
 ## Diseños a entregar
 
