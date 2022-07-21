@@ -221,9 +221,11 @@ Paso 5: El proceso ETL_weather cuenta con 2 etapas, extraccion y transformacion 
 
 <br>
 
-# Analisis en Power BI
+# Análisis en Power BI
 
 En esta seccion realizaremos un analisis grafico de los datos y buscaremos obtener algunas conclusiones sobre pasos de inversion a seguir.
+
+Reporte en Power BI (interactivo): https://community.powerbi.com/t5/Data-Stories-Gallery/Analisis-del-movimiento-de-los-taxis-en-Nueva-York/td-p/2654356
 
 <br>
 Observamos que entre los meses de Enero-Febrero-Marzo tenemos 26 millones de regristros con 4000 viajes por dia. Los viajes estan distribuidos en 5 zonas, la duracion promedio del viaje es de 15 min aprox y las tarifas promedio son de $12.14.
