@@ -168,6 +168,12 @@ if **total_amount < fare_amount =** DROP
 
 # Carga Incremental de los datos
 
+<br>
+
+![Stack tecno](../Reporte/_src/arquitectura.jpg)
+
+<br>
+
 Para el proceso de cargar incremental de los meses sucesivos hemos decidido usar los servicios de airflow, ya que con esta tecnologia podemos ejecutar en paso a paso y en intervalos de tiempo, la extraccion, carga y transformacionn de nuestros datos.
 <br>
 
