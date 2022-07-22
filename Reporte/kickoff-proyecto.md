@@ -60,6 +60,4 @@ Repo del proyecto: https://github.com/Ramirez-L/Proyecto_Taxis_Grupo_11
 
 Proyecto Henry: https://github.com/soyHenry/DS-Proyecto_Grupal_TaxisNYC
 
-Arquitectura: https://github.com/Marcel-Jan/docker-hadoop-spark
-
 Notion del proyecto: https://www.notion.so/2222c531028f45d6828f236dcc107802

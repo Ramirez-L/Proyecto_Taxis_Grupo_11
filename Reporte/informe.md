@@ -18,7 +18,7 @@ Se ha creado una columna llamada "Tiempo Viaje" para conocer si hay valores que 
 
 ## Tiempo de Viaje - Sin Outliers
 
-![Tiempo de Viaje, sin outliers](../Reporte/_src/tiempo_viaje_s_sin_outliers.png)
+![Tiempo de Viaje sin outliers](../Reporte/_src/tiempo_viaje_s_sin_outliers.png)
 
 Otra observación ha sido la distancia de viaje o "trip_distance" donde los valores outlier o superiores a 25.000 millas fueron considerados como errores en el registro, y fueron convertidos a Cero. Porque son distancias superiores, por ejemplo un registro que tiene mas de 175.000 millas recorridas.
 
@@ -28,7 +28,7 @@ Otra observación ha sido la distancia de viaje o "trip_distance" donde los valo
 
 ## Distancia de Viaje - Sin Outliers
 
-![Distancia de Viaje, sin outliers](..\Reporte\_src\trip_distance_outlier.png)
+![Distancia de Viaje, sin outliers](../Reporte/_src/trip_distance_outlier.png)
 
 En las columnas relaciondas a las tarifas y recargos como las siguientes:
 
@@ -168,6 +168,12 @@ if **total_amount < fare_amount =** DROP
 
 # Carga Incremental de los datos
 
+<br>
+
+![Stack tecno](../Reporte/_src/Linode_-_Cloud_.png)
+
+<br>
+
 Para el proceso de cargar incremental de los meses sucesivos hemos decidido usar los servicios de airflow, ya que con esta tecnologia podemos ejecutar en paso a paso y en intervalos de tiempo, la extraccion, carga y transformacionn de nuestros datos.
 <br>
 
@@ -215,9 +221,11 @@ Paso 5: El proceso ETL_weather cuenta con 2 etapas, extraccion y transformacion 
 
 <br>
 
-# Analisis en Power BI
+# Análisis en Power BI
 
 En esta seccion realizaremos un analisis grafico de los datos y buscaremos obtener algunas conclusiones sobre pasos de inversion a seguir.
+
+Reporte en Power BI (interactivo): https://community.powerbi.com/t5/Data-Stories-Gallery/Analisis-del-movimiento-de-los-taxis-en-Nueva-York/td-p/2654356
 
 <br>
 Observamos que entre los meses de Enero-Febrero-Marzo tenemos 26 millones de regristros con 4000 viajes por dia. Los viajes estan distribuidos en 5 zonas, la duracion promedio del viaje es de 15 min aprox y las tarifas promedio son de $12.14.
@@ -260,4 +268,4 @@ A la hora de analizar la situacion por clima vemos una clara tendencia. La mayor
 
 <br>
 
-![Tarifas - Propinas](../Reporte/_src/powerbi1.jpeg)
+![Tarifas - Propinas](../Reporte/_src/powerbi1.jpeg) 
