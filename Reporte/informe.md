@@ -306,4 +306,6 @@ Ahora aplicaremos un modelo de machine learning para predecir la tarifa del viaj
 
 **Paso 4**: Exportamos el modelo y lo cargamos en un streamlit para poder realizar las predicciones de las tarifas desde ese mismo lugar
 
+Link aplicaicon para predecir la tarifa: https://mangoru-taxi-trips-amount-prediction-streamlit-app-0z2yr7.streamlitapp.com/
+
 ![Tarifas - Propinas](../Reporte/_src/ml_3.png)
