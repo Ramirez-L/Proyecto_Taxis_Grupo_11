@@ -16,7 +16,7 @@ const initialState = {
         {"weather": "select * from weather"},
         {"location": "select * from location"},
         {"rate": "select * from rate"},
-        {"pay_type": "select * from pay_tipe"},
+        {"pay_type": "select * from payment"},
         {"vendor": "select * from vendor"}
     ]
 
