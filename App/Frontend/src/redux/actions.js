@@ -4,7 +4,7 @@ const axios = require("axios");
 // Funcion general solo para hacer consultas Postgres
 export function makeCall(query){
     return function (dispatch) {
-        return axios.get('http://45.56.77.151:8080/query/', {
+        return axios.get('http://192.53.165.168:8000/query/', {
             params: {
                 consulta: query
             }
@@ -35,7 +35,7 @@ export function Clear(){
 // Funcion para hacer una consulta rapida de la lista desplegable
 export function Quick_query(quick){
     return function (dispatch) {
-        return axios.get('http://45.56.77.151:8080/query/', {
+        return axios.get('http://192.53.165.168:8000/query/', {
             params: {
                 consulta: quick
             }
