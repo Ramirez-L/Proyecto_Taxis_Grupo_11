@@ -20,13 +20,13 @@ Ahora aplicaremos un modelo de machine learning para predecir la tarifa del viaj
 
 **Paso 2**: Utilizamos el GridSearch para la optimizacion de los hiperparametros del arbol de desicion, a este modelo le entregamos una lista de valores de hiperparametros y el modelo itera hasta encontrar el mejor.
 
-![Tarifas - Propinas](../Reporte/_src/ml_1.png)
+![Tarifas - Propinas](../_src/ml_1.png)
 
 <br>
 
 **Paso 3**: Teniendo los mejores hiperparamentros para el modelo observamos que la medida de la calidad del modelo que estabamos utilizando R2 variaba mucho entre una ejecucion y otra. Por lo tanto decidimos realizar una validacion cruzada, para que con diferentes secciones de Train y Test realice un promedio y nos devuelva un valor mucho mas confiable de R2.
 
-![Tarifas - Propinas](../Reporte/_src/ml_2.png)
+![Tarifas - Propinas](../_src/ml_2.png)
 
 <br>
 
@@ -34,4 +34,4 @@ Ahora aplicaremos un modelo de machine learning para predecir la tarifa del viaj
 
 Link aplicaicon para predecir la tarifa: https://mangoru-taxi-trips-amount-prediction-streamlit-app-0z2yr7.streamlitapp.com/
 
-![Tarifas - Propinas](../Reporte/_src/ml_3.png)
+![Tarifas - Propinas](../_src/ml_3.png)
