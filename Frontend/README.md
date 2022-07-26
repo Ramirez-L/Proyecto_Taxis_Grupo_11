@@ -4,7 +4,7 @@ El siguiente es el código creado en React para poder crear una consulta a la Ba
 
 ## Pasos para activar el Frontend desde una Máquina local o Remota
 
-Es requisito tener instalado NodeJS y npm para poder correr los archivos de dependencias y código React.
+Es requisito tener instalado NodeJS y npm para poder correr los archivos de dependencias y código React. Además de haber levantado el servidor de la carpeta API => consultas.py para que pueda hacer las consultas a la base de datos (Postgres).
 
 - Primer paso, desde la carpeta del repositorio, hacer lo siguiente:
 
