@@ -296,7 +296,7 @@ A la hora de analizar la situacion por clima vemos una clara tendencia. La mayor
 
 <br>
 
-# Arbol de desicion
+# Árbol de decisión
 
 <br>
 
