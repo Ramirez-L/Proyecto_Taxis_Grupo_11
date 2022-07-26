@@ -51,9 +51,9 @@ Funciona solamente para consultas y no es posible realizar modificaciones a las 
 
 Permite los siguientes formatos:
 
-- "  SELECT ..."
-- " selelct ..."
-- "SeLeCT ..."
+- "  SELECT ..." => Con solo letras mayúsculas y espacios al inicio de la linea
+- " selelct ..." => Con solo letras minúsculas y espacios al inicio de la linea
+- "SeLeCT ..."   => Mezcla de letras y sin espacios al inicio de la linea
 
 No permite los formatos:
 

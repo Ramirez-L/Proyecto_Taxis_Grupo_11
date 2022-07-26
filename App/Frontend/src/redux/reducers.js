@@ -1,3 +1,4 @@
+// Memoria local o datos base para ser mostrados en pantalla
 const initialState = {
     // Query
     query: '',
@@ -15,7 +16,7 @@ const initialState = {
         {"weather": "select * from weather"},
         {"location": "select * from location"},
         {"rate": "select * from rate"},
-        {"pay_type": "select * from pay_type"},
+        {"pay_type": "select * from pay_tipe"},
         {"vendor": "select * from vendor"}
     ]
 

@@ -11,8 +11,10 @@ import TableRow from '@mui/material/TableRow';
 
 
 export default function Tabla() {
+    // Tomar los datos base de la memoria local Redux
     var datos = useSelector(state => state.datos);
 
+    // Tomar dinamicamente los datos para hacer el HEAD de la tabla
     var head = Object.keys(datos[0])
     var columnas = head.map(function(item, i){
         return {
@@ -23,6 +25,7 @@ export default function Tabla() {
           }
     })
 
+    // Tomar dinamicamente los datos para hacer las ROWS de la tabla
     var filas = datos.map(function(item, i){
         return item
     })

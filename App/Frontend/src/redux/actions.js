@@ -1,5 +1,7 @@
+// Declarar librería para los request HTTP
 const axios = require("axios");
 
+// Funcion general solo para hacer consultas Postgres
 export function makeCall(query){
     return function (dispatch) {
         return axios.get('http://45.56.77.151:8080/query/', {
@@ -16,6 +18,8 @@ export function makeCall(query){
     }
 }
 
+
+// Funcion para limpiar los datos que estan en pantalla
 export function Clear(){
     return {
         type: 'CLEAR_STORE',
@@ -27,6 +31,8 @@ export function Clear(){
     }
 }
 
+
+// Funcion para hacer una consulta rapida de la lista desplegable
 export function Quick_query(quick){
     return function (dispatch) {
         return axios.get('http://45.56.77.151:8080/query/', {
