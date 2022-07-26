@@ -2,13 +2,17 @@ import {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { makeCall, Clear } from '../redux/actions.js';
 
+
+
 function Boton(){
+    // Declaracion para luego ejecutar las actions.js
     const dispatch = useDispatch()
 
+    // Tomar los datos base de la memoria local Redux
     var [query, setQuery] = useState('');
     var datos = useSelector(state => state.datos);
 
-    // Para condicionar solo consultas, sin alterar
+    // Para condicionar solo consultas, sin alterar, solo pemite select
     const re = `^\\s*[sS][eE][lL][eE][cC][tT].+`
 
     const llamada = event => {

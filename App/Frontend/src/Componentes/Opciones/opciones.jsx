@@ -8,9 +8,10 @@ import Select from '@mui/material/Select';
 import { Quick_query } from '../../redux/actions';
 
 export default function Opciones() {
+  // Declaracion para luego ejecutar las actions.js
     const dispatch = useDispatch()
     
-
+    // Tomar los datos base de la memoria local Redux
     const [tabla, setTabla] = React.useState('');
     var quick = useSelector(state => state.quick);
     
@@ -18,7 +19,10 @@ export default function Opciones() {
       event.preventDefault()
       setTabla(event.target.value);
 
+      // Tomar solo el valor Seleccionado y la consulta pre-guardada de la memoria local Redux
       var consulta = Object.values(quick[event.target.value])[0]
+
+      // Enviar la consulta pre-guardada
       dispatch(Quick_query(consulta))
   };
 

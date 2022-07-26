@@ -14,7 +14,7 @@ Esta ruta es para hacer el envío de la consulta hacia la base de datos, solo pe
 
 - GET: URL/model
 
-Haciendo el llamado a esta dirección, se puede descargar el archivo .SAV del modelo de datos aplicado en la página (insertar link de pagina Streamlit)
+Haciendo el llamado a esta dirección, se puede descargar el archivo .SAV del modelo de datos aplicado en la página [Demostración consumible del modelo de Machine Learning](https://mangoru-taxi-trips-amount-prediction-streamlit-app-0z2yr7.streamlitapp.com/)
 
 ## Pasos para iniciar el Servidor
 
@@ -80,7 +80,3 @@ SELECT COUNT(*) from trip
 - GET: URL/model
 
 Ruta para poder descargar el modelo de Machine Learning desde el navegador. Regresa el archivo .sav
-
-## Demostración
-
-Ingresar al siguiente link y seguir intrucciones en el Readme ==> [Frontend de la API](https://github.com/Ramirez-L/Taxi_api)
