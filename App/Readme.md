@@ -53,7 +53,7 @@ uvicorn [nombre_archivo_sin_py]:[nombre_del_objeto_en_el_archivo] --host [URL_ma
 Ejemplo, como ha sido usado en el proyecto
 
 ``` cmd
-uvicorn consulta:app --host 45.56.77.151 --port 8080
+uvicorn consulta:app --host 192.53.165.168 --port 8000
 ```
 
 ### __Return o Respuestas de las llamadas a la API__
