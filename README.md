@@ -198,7 +198,7 @@ if **total_amount < fare_amount =** DROP
 
 <br>
 
-Para el proceso de cargar incremental de los meses sucesivos hemos decidido usar los servicios de airflow, ya que con esta tecnologia podemos ejecutar en paso a paso y en intervalos de tiempo, la extraccion, carga y transformacionn de nuestros datos.
+Para el proceso de carga incremental de los meses sucesivos hemos decidido usar los servicios de airflow, ya que con esta tecnologia podemos ejecutar en paso a paso y en intervalos de tiempo, la extraccion, carga y transformacionn de nuestros datos.
 <br>
 
 Ademas crearemos una base de datos en postgresql que conectaremos con airflow. 

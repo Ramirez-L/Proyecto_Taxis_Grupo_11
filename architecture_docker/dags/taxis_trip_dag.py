@@ -58,6 +58,7 @@ def _task_transform_trip(year: str,month: str,out_dir:str,ti):
     
     with open(out_dir+csv_clean_file,"w+") as f:
         f.write(','.join(header)+'\n')
+    ti.xcom_push(key='csv_clean_file', value=csv_clean_file)
 
     pf_taxis = ParquetFile(out_dir+parquet_file)
     for i,batch in enumerate(pf_taxis.iter_batches(batch_size=BATCH_SIZE_TRIP)):
@@ -68,7 +69,6 @@ def _task_transform_trip(year: str,month: str,out_dir:str,ti):
     if os.path.exists(out_dir+parquet_file):
         os.remove(out_dir+parquet_file)
 
-    ti.xcom_push(key='csv_clean_file', value=csv_clean_file)
 
 def _task_load_trip(out_dir:str,ti):
     import pandas as pd
