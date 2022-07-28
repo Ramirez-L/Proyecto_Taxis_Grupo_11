@@ -48,11 +48,11 @@ Otra observación ha sido la distancia de viaje o "trip_distance" donde los valo
 
 ## Distancia de Viaje - Con Outliers
 
-![Distancia de Viaje , con outliers](_src/trip_distance_sin_outlier.png)
+![Distancia de Viaje , con outliers](_src/trip_distance_outlier.png)
 
 ## Distancia de Viaje - Sin Outliers
 
-![Distancia de Viaje, sin outliers](_src/trip_distance_outlier.png)
+![Distancia de Viaje, sin outliers](_src/trip_distance_sin_outlier.png)
 
 En las columnas relaciondas a las tarifas y recargos como las siguientes:
 
