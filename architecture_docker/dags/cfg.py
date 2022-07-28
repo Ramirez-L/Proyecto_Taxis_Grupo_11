@@ -11,6 +11,6 @@ HOST="postgres"
 DBNAME="taxisdb"
 USER="airflow"
 PASS="airflow"
-BATCH_SIZE_TRIP=100000
+BATCH_SIZE_TRIP=50000
 DATABASE_LOCATION=f'postgresql+psycopg2://{USER}:{PASS}@{HOST}:5432/{DBNAME}'
 BASE_URL_TAXIS="https://d37ci6vzurychx.cloudfront.net/trip-data/"
