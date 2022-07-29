@@ -1,19 +1,19 @@
-# Taxis NYC & WEATHER API
+# NYC TAXIS & WEATHER API
 
-Una empresa de servicios de transporte de pasajeros que actualmente se encuentra operando en el sector de micros de media y larga distancia, está interesada en invertir en el sector de transporte de pasajeros con automóviles.
+A passenger transport service company that is currently operating in the medium and long-distance bus sector is interested in investing in the passenger car transport sector.
 
-Debido a que sería una unidad de negocio nueva, se pretende hacer un análisis preliminar del movimiento de los taxis en la ciudad de Nueva York, para poder obtener un marco de referencia y poder tomar decisiones bien fundamentadas.
+Since it would be a new business unit, it is intended to make an analysis of the movement of taxis in the city of New York, in order to obtain a reference and be able to make well-founded decisions.
 
-El objetivo es acompañar al negocio en ese proceso de toma de decisión, para lo cual se recolectarán los datos provistos (2018/01 yellow taxi trip records).
+The objective is to accompany the business in this decision-making process, for which the data provided (2018/01 yellow taxi trip records) will be collected.
 
-Para poder entender mejor los datos, podemos proveer lo siguiente:
+In order to better understand the data, we may provide the following:
 
-* Data de los viajes --> https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page
-* API Weather --> https://www.visualcrossing.com/weather-api 
-* ¿Qué es un Borough? -->  https://en.wikipedia.org/wiki/Boroughs_of_New_York_City
-* Archivo de zonas de NYC --> taxi+_zone_lookup.csv
+* Trip data --> https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page
+* Weather API --> https://www.visualcrossing.com/weather-api
+* What is a Borough? --> https://en.wikipedia.org/wiki/Boroughs_of_New_York_City
+* NYC zones file --> taxi+_zone_lookup.csv
 
-Borough, Latitud, Longitud<br>
+Borough, Latitude, Longitude<br>
 * Manhattan, New York City, NY, USA (40.776676, -73.971321)
 * Brooklyn, New York City, NY, USA (40.650002, -73.949997)
 * Bronx, New York City, NY, USA (40.837048, -73.865433)
@@ -22,72 +22,72 @@ Borough, Latitud, Longitud<br>
 
 <br>
 
-# Exploración del dataset Taxis NYC Enero 2018
+# Exploration of the NYC Taxis dataset January 2018
 
-La extracción de los datos ha sido realizada desde la Web [Click Aquí](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page). Asi ha sido la carga inicial de los datos y de exploracion.
+The extraction of the data has been carried out from [this source](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page). This has been the initial load of data and exploration.
 
-La tabla contiene casi 8.7 millones de registros y 19 columnas de las cuales hay dos ["congestion_surcharge", "airport_fee"] con 99.9% de valores nulos.
+The table contains almost 8.7 million records and 19 columns of which there are two ["congestion_surcharge", "airport_fee"] with 99.9% null values.
 
-En la tabla con la columna "airport_fee" se ha decidido eliminarla porque no agregar valor a los datos, ya que hace referencia a una tarifa y sus valores son cero por lo tanto es irrelevante para el análisis.
+In the table with the column "airport_fee" it has been decided to eliminate it because it does not add value to the data, since it refers to a fee and its values ​​are zero, therefore it is irrelevant for the analysis.
 
-Ahora con la segunda columna "congestion_surcharge", al ser una tarifa que se aplica a las demoras por congestionamientos se ha decidido convertir los valores __Nulos__ en __Cero__, de esta forma se puede utilizar en otros analisis si en el viaje de taxi ocurren o no congestionamientos.
+Now with the second column "congestion_surcharge", as it is a rate that is applied to delays due to congestion, it has been decided to convert the __Null__ values ​​into __Zero__, in this way it can be used in other analyzes if congestion occurs or not in the taxi trip.
 
-La compañía que ha realizado más viajes en el mes ha sido __VeriFone Inc.__ con mas de 4.914.553 en comparación con __Creative Mobile Technologies__ con 3.846.134
+The company that has made the most trips in the month has been __VeriFone Inc.__ with more than 4,914,553 compared to __Creative Mobile Technologies__ with 3,846,134
 
-Se ha creado una columna llamada "Tiempo Viaje" para conocer si hay valores que no sean reales o positivos. Estos valores negativos han sido convertidos a Cero y los tiempos de viajes que ha superado los 100.000 segundos fueron covertidos a Cero porque representan mas de 1 día de viaje.
+A column called "Travel Time" has been created to know if there are values ​​that are not real or positive. These negative values ​​have been converted to Zero and the travel times that have exceeded 100,000 seconds were converted to Zero because they represent more than 1 day of travel.
 
-## Tiempo de Viaje - Con Outliers
+## Travel Time - with Outliers
 
 ![Tiempo de Viaje, con outliers](_src/tiempo_viaje_s.png)
 
-## Tiempo de Viaje - Sin Outliers
+## Travel Time - without Outliers
 
 ![Tiempo de Viaje sin outliers](_src/tiempo_viaje_s_sin_outliers.png)
 
-Otra observación ha sido la distancia de viaje o "trip_distance" donde los valores outlier o superiores a 25.000 millas fueron considerados como errores en el registro, y fueron convertidos a Cero. Porque son distancias superiores, por ejemplo un registro que tiene mas de 175.000 millas recorridas.
+Another observation has been the trip distance or "trip_distance" where the outlier values or greater than 25,000 miles were considered as errors in the registry, and were converted to Zero. Because they are higher distances, for example a record that has more than 175,000 miles traveled.
 
-## Distancia de Viaje - Con Outliers
+## Travel Distance - with Outliers
 
 ![Distancia de Viaje , con outliers](_src/trip_distance_outlier.png)
 
-## Distancia de Viaje - Sin Outliers
+## Travel Distance - without Outliers
 
 ![Distancia de Viaje, sin outliers](_src/trip_distance_sin_outlier.png)
 
-En las columnas relaciondas a las tarifas y recargos como las siguientes:
+In the columns related to rates and surcharges such as the following:
 
 - fare_amount
 - extra
-- mta_tax
+-mta_tax
 - tip_amount
-- tolls_amount
+-tolls_amount
 - improvement_surcharge
-- total_amount
+-total_amount
 
-Se han detectado que existen valores negativos y hay opciones que han consirerado, la primera es que hay registros erróneos y otros valores que pueden ser descuentos (Consultar). Por lo tanto se ha decidido convertir todos los registros a positivos para no perder el dato ya que es de utilidad para los análisis. Como recomendación, poder agregar una columna adicional que pueda ser llamada "Descuentos".
+It has been detected that there are negative values and there are options that have been considered, the first is that there are erroneous records and other values that may be discounts (Consult). Therefore, it has been decided to convert all the records to positive so as not to lose the data, since it is useful for analysis. As a recommendation, to be able to add an additional column that can be called "Discounts".
 
-## Tarifas - Monto Total
+## Fare amount 
 
 ![Tarifas - Monto Total](_src/tarifa_total.png)
 
-## Tarifas - Propinas
+## Fare amount + tip
 
 ![Tarifas - Propinas](_src/propinas.png)
 
 
-## Correccion de valores de Borough
+## Borough Value Correction
 
-En esta seccion decicimos eliminar 189 mil valores de la tabla Taxis ya que los elementos no se contectan con la tabla de Borough. No tenemos Borough, Zone, ni la latitud o longitud.
+In this section we decided to remove 189 thousand values ​​from the Taxis table since the elements do not connect to the Borough table. We don't have Borough, Zone, latitude or longitude.
 
-## Correccion de valores de Rate
+## Correction of Rate values
 
-Observamos en el diccionario de datos que tenemos 6 valores distintos de Rate_Code, pero en el anilisis de datos observamos un septimo. Valor 99 que contiene unos 30 datos. Decicimos eliminar estos datos ya que son un inpedimento a la hora de hacer las conexiones para el datawarehouse.
+We see in the data dictionary that we have 6 different Rate_Code values, but in the data analysis we see a seventh. Value 99 containing about 30 data. We decided to eliminate this data since it is an impediment when making connections to the datawarehouse.
 
 <br>
 
-# Datawarehouse
-A la hora de armar la base de datos, decidimos trabjar con postgresql y airflow. Todos estos procesos estaran montados en docker.
-Para empezar investigamos en la documentacion de airflow y descargamos el archivo docker_compose que trajo airflow y el postgresql con el trabajamos. Con postgresql armamos la base de datos con sus tablas, llaves primarias y llaves foraneas. El airflow lo utilizaremos para orquestar la automatizacion del proceso desde el ETL(con trabajo sobre los valores alejados y los nulos) como tambien la creacion de las tablas y la carga de los datos.
+#Data warehouse
+When building the database, we decided to work with postgresql and airflow. All these processes will be mounted in docker.
+To begin with, we investigate the airflow documentation and download the docker_compose file that airflow brought and the postgresql we work with. With postgresql we build the database with its tables, primary keys and foreign keys. We will use the airflow to orchestrate the automation of the process from the ETL (with work on remote values ​​and nulls) as well as the creation of the tables and the loading of the data.
 
 <br>
 
@@ -97,33 +97,33 @@ Para empezar investigamos en la documentacion de airflow y descargamos el archiv
 
 <br>
 
-## Creacion de la base de datos
-Trabajamos con la tabla __trip_data__ que tendra todos los datos obtenidos del dataset Taxis.csv, tendra una primarykey llamada "id_trip_data".
-trip_data cuenta con 5 llavaes foraneas:
+## Creation of the database
+We work with the __trip_data__ table that will have all the data obtained from the Taxis.csv dataset, it will have a primarykey called "id_trip_data".
+trip_data has 5 foreign keys:
 <br>
-- __Rate:__ Entre id_date_code de la tabla trip_data y id_rate de la tabla rate. Contalbiliza los tipos de tarifa de los viajes
-- __Pay_tipe:__ Entre id_pay_tipe de la tabla trip data y id_pay_tipe de la tabla pay_tipe. Contabiliza los metodos de pagos de los usuarios.
-- __Vendor:__ Entre id_vendor de la tabla trip data y id_vendor de la tabla vendor. Contabiliza la empresa que realizo el viaje.
-- __Localtion:__ Con esta tabla tenemos una doble llave foranea. La primera para la columna pu_location y la segunda para do_location ambas de la tabla trip_data y se conectan con la columna id_location de la tabla location. En estas columnas estamos mostrando lo localizacion del taxi en el inicio del viaje y la localizacion en su final.
-
-<br>
-
-Para continuar tenemos la tabla __weather__, esta tabla cuenta con una llave primaria llamada id_weather, que informa sobre cada una de las situaciones climaticas en los lugares correspondientes en un periodo de una hora. Ademas cuenta con 1 llave foranea:
-<br>
-- __Borough:__ La columna id_borough de la tabla weather con la tabla id_borough de la tabla borough. Para coordinar la ubicacion de cada situacion climatica registrada en su tabla correspondiente.
-
-
-Terminando el analisis de las llaves foraneas tenemos la tabla __borough__, donde la llave primaria es el id_borough y posee una llave foranea:
-<br>
-- __Location:__ La id_borough de la tabla borough con la columna id_borough de la tabla location. Para coordinar las jerarquias entre los borough y las zonas.
+- __Rate:__ Enter id_date_code from the trip_data table and id_rate from the rate table. Accounts for the types of travel fares
+- __Pay_tipe:__ Enter id_pay_tipe from the trip data table and id_pay_tipe from the pay_tipe table. It accounts for the payment methods of the users.
+- __Vendor:__ Enter id_vendor from the trip data table and id_vendor from the vendor table. Account the company that made the trip.
+- __Localtion:__ With this table we have a double foreign key. The first for the pu_location column and the second for do_location both from the trip_data table and connect to the id_location column in the location table. In these columns we are showing the location of the taxi at the beginning of the trip and the location at its end.
 
 <br>
 
-Ademas tenemos las tablas __calendario__ donde la clave primaria es la fecha, y tenemos las columnas sobre dia, semana, mes, trimestre, etc.
+To continue we have the __weather__ table, this table has a primary key called id_weather, which reports on each of the weather situations in the corresponding places in a period of one hour. It also has 1 foreign key:
+<br>
+- __Borough:__ The id_borough column from the weather table with the id_borough table from the borough table. To coordinate the location of each climatic situation registered in its corresponding table.
 
-La tabla __location__ donde organizamos las jerarquias y las relaciones entre las zonas y los borough.
 
-La tabla __rate__ donde anotamos los tipos de tarifas, la tabla __pay_tipe__ y la tabla __vender__ donde vemos la empresa que realizo el viaje.
+Finishing the analysis of the foreign keys we have the table __borough__, where the primary key is the id_borough and has a foreign key:
+<br>
+- __Location:__ The id_borough from the borough table with the id_borough column from the location table. To coordinate the hierarchies between the boroughs and the zones.
+
+<br>
+
+We also have the tables __calendario__ where the primary key is the date, and we have the columns on day, week, month, quarter, etc.
+
+The __location__ table where we organize the hierarchies and the relationships between the zones and the boroughs.
+
+The __rate__ table where we write down the types of rates, the __pay_tipe__ table and the __vender__ table where we see the company that made the trip.
 
 <br>
 
@@ -131,66 +131,66 @@ La tabla __rate__ donde anotamos los tipos de tarifas, la tabla __pay_tipe__ y l
 
 <br>
 
-# Reglas de negocio
+# Business rules
 <br>
 
-1. Las unidades de taxis deben poder proporcionar el servicio de viaje a sus pasajeros.
+1. Taxi units must be able to provide travel service to their passengers.
 
-La fecha y hora de **tpep_dropoff_datetime** no puede inferior al de **tpep_pickup_datetime**.
+The date and time of **tpep_dropoff_datetime** cannot be less than **tpep_pickup_datetime**.
 
 ```python
 if **tpep_dropoff_datetime** < **tpep_pickup_datetime** = DROP
 ```
 
-Los valores en las distancias en **trip_distance** deben ser positivos.
+The values ​​in the distances in **trip_distance** must be positive.
 
 ```python
 if **trip_distance < 0 = abs(trip_distance)**
 ```
 
-1. El pasajero debe poder solicitar una unidad de taxi para su viaje.
+1. The passenger must be able to request a taxi unit for their trip.
 
-Los valores en la tarifa de **fare_amount** deben ser positivos.
+The values ​​in the **fare_amount** fare must be positive.
 
 ```python
 if **fare_amount** < 0 = abs(**fare_amount**)
 ```
 
-1. Los viajes deben suceder en zonas y barrios existentes.
+1. Trips must take place in existing zones and neighborhoods.
 
-Las ubicaciones de subida **pu_location** y bajada **do_location** de cada viaje deben pertenecer a una ubicación en la tabla **location**.
+The pick-up **pu_location** and drop-off **do_location** locations for each trip must belong to a location in the **location** table.
 
 ```python
 **taxis**[**pu_location**] is not **location**[**id_location] =** DROP
 **taxis**[**do_location**] is not **location**[**id_location] =** DROP
 ```
 
-1. Las tarifas son establecidas por un código dado por la locación final del viaje.
+1. Fares are established by a code given by the final location of the trip.
 
-El código de tarifa de cada viaje **ratecodeid** debe estar en un rango del 1 al 6.
+The rate code of each trip **ratecodeid** must be in a range from 1 to 6.
 
 ```python
 if **ratecodeid** < 1 and **ratecodeid >** 6 = DROP
 ```
 
-1. El pasajero puede decidir su método de pago preferente.
+1. The passenger can decide their preferred payment method.
 
-El código de pago de cada viaje **id_payment** debe estar en un rango del 1 al 6. 
+The payment code of each trip **id_payment** must be in a range from 1 to 6.
 
 ```python
 if **id_payment** < 1 and **id_payment >** 6 = DROP
 ```
 
-1. Cada viaje genera una ganancia dependiendo de la tarifa dada.
+1. Each trip generates a profit depending on the rate given.
 
-El valor en **total_amount** debe ser mayor o igual que en **fare_amount**.
+The value in **total_amount** must be greater than or equal to **fare_amount**.
 
 ```python
 if **total_amount < fare_amount =** DROP
 ```
 <br>
 
-# Carga Incremental de los datos
+# Incremental loading of data
 
 <br>
 
@@ -198,16 +198,16 @@ if **total_amount < fare_amount =** DROP
 
 <br>
 
-Para el proceso de carga incremental de los meses sucesivos hemos decidido usar los servicios de airflow, ya que con esta tecnologia podemos ejecutar en paso a paso y en intervalos de tiempo, la extraccion, carga y transformacionn de nuestros datos.
+For the incremental loading process of the following months we have decided to use airflow services, since with this technology we can execute the extraction, loading and transformation of our data step by step and in time intervals.
 <br>
 
-Ademas crearemos una base de datos en postgresql que conectaremos con airflow. 
+We will also create a database in postgresql that we will connect with airflow.
 <br>
 
-Paso 1: Creamos el esquema.
+Step 1: We create the scheme.
 <br>
 
-Paso 2: Cargamos las tablas Vendor, Rate, Payment, Borough y Location (Tablas que seran creadas y cargadas una sola vez)
+Step 2: We load the Vendor, Rate, Payment, Borough and Location tables (Tables that will be created and loaded only once)
 
 <br>
 
@@ -216,18 +216,18 @@ Paso 2: Cargamos las tablas Vendor, Rate, Payment, Borough y Location (Tablas qu
 ![Tarifas - Propinas](_src/airflow2.jpeg)
 
 <br>
-Paso 3: Luego se ejecutan dos procesos el ETL_taxi_trips y ETL_weather.
+Step 3: Then two processes the ETL_taxi_trips and ETL_weather are executed.
 <br>
 
-![Tarifas - Propinas](_src/airflow3.jpeg)
+![Rates - Tips](_src/airflow3.jpeg)
 
-Paso 4: El proceso ETL_taxis_trips cuenta con 3 etapas, extraccion de los datos desde la pagina (extrac_trip), transformacion de los datos con python (transform_trip) y la carga a los datos a la base en postgressql (load_trip).
+Step 4: The ETL_taxis_trips process has 3 stages, extracting the data from the page (extrac_trip), transforming the data with python (transform_trip) and loading the data to the postgressql database (load_trip).
 
 <br>
 
-![Tarifas - Propinas](_src/airflow4.jpeg)
+![Rates - Tips](_src/airflow4.jpeg)
 
-Paso 5: El proceso ETL_weather cuenta con 2 etapas, extraccion y transformacion de los datos desde la pagina (extrac_transform_weather)y la carga a los datos a la base en postgressql (load_weather).
+Step 5: The ETL_weather process has 2 stages, extracting and transforming the data from the page (extract_transform_weather) and loading the data to the base in postgressql (load_weather).
 
 <br>
 
@@ -245,91 +245,90 @@ Paso 5: El proceso ETL_weather cuenta con 2 etapas, extraccion y transformacion 
 
 <br>
 
-# Análisis en Power BI
+# Analysis in Power BI
 
-En esta seccion realizaremos un analisis grafico de los datos y buscaremos obtener algunas conclusiones sobre pasos de inversion a seguir.
+In this section we will carry out a graphical analysis of the data and we will seek to obtain some conclusions about investment steps to follow.
 
-Reporte en Power BI (interactivo): https://community.powerbi.com/t5/Data-Stories-Gallery/Analisis-del-movimiento-de-los-taxis-en-Nueva-York/td-p/2654356
-
-<br>
-Observamos que entre los meses de Enero-Febrero-Marzo tenemos 26 millones de regristros con 4000 viajes por dia. Los viajes estan distribuidos en 5 zonas, la duracion promedio del viaje es de 15 min aprox y las tarifas promedio son de $12.14.
+Report in Power BI (interactive): https://community.powerbi.com/t5/Data-Stories-Gallery/Analisis-del-movimiento-de-los-taxis-en-Nueva-York/td-p/2654356
 
 <br>
+We observe that between the months of January-February-March we have 26 million records with 4000 trips per day. The trips are distributed in 5 zones, the average duration of the trip is approximately 15 minutes and the average fares are $12.14.
 
-A la hora de analizar una posible incursion en el mercado de taxis, creemos que el dato mas importante es la ubicacion. Mas de la mitad de los taxis salen de la zona de Manhattan. 
-Esta region tiene 12 veces mas viajes que las otras 4 juntas y genera 4.5 veces los ingresos de las otras 4 zonas sumadas. Por lo tanto si hay una ubicacion donde es recomendable para una empresa empezar es en Manhattan. 
+<br>
 
+When analyzing a possible incursion into the taxi market, we believe that the most important data is the location. More than half of the taxis leave from the Manhattan area.
+This region has 12 times more trips than the other 4 together and generates 4.5 times the revenue of the other 4 zones combined. Therefore, if there is a location where it is recommended for a company to start, it is in Manhattan.
 <br>
 
 ![Tarifas - Propinas](_src/powerbi2.jpg)
 
 <br>
 
-Ademas es importante considerar los horarios de trabajo de la empresa. Nosotros encontramos importante la franja horaria desde las 8 am hasta las 11 pm, ya que es el tiempo donde mas requerimientos de taxis habran y podra ser mas aprovechable.
-Considerando tambien que un dia donde los consumos de taxis en cantidad y dinero son menores es el dia Domingo.
+It is also important to consider the working hours of the company. We find the time slot from 8 am to 11 pm important, since it is the time when there will be more taxi requirements and it could be more profitable.
+Considering also that a day where the consumption of taxis in quantity and money are lower is Sunday.
 
 <br>
 
-![Tarifas - Propinas](_src/powerbi3.jpg)
+![Rates - Tips](_src/powerbi3.jpg)
 
 <br>
 
-En el analisis por zonas podemos observar nuevamente el amplio margen de ventaja entre Manthattan y el resto. Ademas podemos notar que las condiciones climaticas no suelen tener un fuerte impacto en la demanda de taxis.
+In the analysis by zones we can once again observe the wide margin of advantage between Manhattan and the rest. We can also note that weather conditions do not usually have a strong impact on the demand for taxis.
 
 <br>
 
-![Tarifas - Propinas](_src/powerbi4.jpg)
+![Rates - Tips](_src/powerbi4.jpg)
 
 <br>
 
-En esta seccion vemos la importancia del aceptar el pago con tarjeta, casi un requisito excluyente. De no ser asi podrian ver muy mermados los ingresos de la empresa. A la hora de analizar los tipos tarifas, consideramos que es importante tener consideraciones para viajes al aeropuerto, estos casos seran por amplian diferencia escasos.
+In this section we see the importance of accepting payment by card, almost an exclusive requirement. If not, they could see the company's income greatly reduced. When analyzing the types of rates, we consider that it is important to have considerations for trips to the airport, these cases will be by far scarce.
 
 <br>
 
-![Tarifas - Propinas](_src/powerbi5.jpg)
+![Rates - Tips](_src/powerbi5.jpg)
 
-A la hora de analizar la situacion por clima vemos una clara tendencia. La mayor cantidad de taxis son requeridos cuando las temperatureas oscilan entre los 30ºF y 45ºF. Pero cuando salimos de ese rango de temperatura los valores de uso de taxis descienden mucho, manteniendose relvantes en los rangos 15ºF-30ºF y 45ºF-60ºF. Pero volviendose casi insignificantes en los rangos menores de 15ºF o mayores de 60ºF.
-
-<br>
-
-![Tarifas - Propinas](_src/powerbi1.jpeg) 
+When analyzing the situation by climate we see a clear trend. The largest number of taxis are required when temperatures range between 30ºF and 45ºF. But when we leave that temperature range, the values ​​of taxi use drop a lot, remaining relevant in the 15ºF-30ºF and 45ºF-60ºF ranges. But becoming almost insignificant in the ranges below 15ºF or above 60ºF.
 
 <br>
 
-# Árbol de decisión
+![Rates - Tips](_src/powerbi1.jpeg)
 
 <br>
 
-Ahora aplicaremos un modelo de machine learning para predecir la tarifa del viaje sin extras o propinas. De esta forma utilizaremos el algoritmo de machine learning llamado arbol de desicion.
+# Decision tree
 
 <br>
 
-**Paso 1** : Separamos los 26 millones de datos en 4 datasets distintos. 
-<br>
-    - X_train: donde tendremos el 80% de los registros y las columnas id_rate, trip_distance, pu_borough y do_borough. Estos registros seran los utilizados para entrenar el modelo.
-<br>
-    - Y_train: en este dataset tendremos solo la columna de fare_amount y el 80% de las filas. Este dataset sera la salida con la que el modelo se entrenara.
-<br>
-    - X_test: tendremos el 20% de los registros restantes y las colmunas id_rate, trip_distance, pu_borough y do_borough. Con este dataset predeciremos que tan bien trabaja el modelo.
-<br>
-    - Y_test: en este dataset tendremos la columna fare_amout y el 20% de las filas restantes. Con este dataset compararemos los resultados del modelo.
+We will now apply a machine learning model to predict the trip fare without extras or tips. In this way we will use the machine learning algorithm called decision tree.
 
 <br>
 
-**Paso 2**: Utilizamos el GridSearch para la optimizacion de los hiperparametros del arbol de desicion, a este modelo le entregamos una lista de valores de hiperparametros y el modelo itera hasta encontrar el mejor.
-
-![Tarifas - Propinas](_src/ml_1.png)
+**Step 1** : We separate the 26 million data into 4 different datasets.
+<br>
+    - X_train: where we will have 80% of the records and the id_rate, trip_distance, pu_borough and do_borough columns. These records will be used to train the model.
+<br>
+    - Y_train: in this dataset we will only have the fare_amount column and 80% of the rows. This dataset will be the output with which the model will be trained.
+<br>
+    - X_test: we will have 20% of the remaining records and the id_rate, trip_distance, pu_borough and do_borough columns. With this dataset we will predict how well the model works.
+<br>
+    - Y_test: in this dataset we will have the fare_amout column and 20% of the remaining rows. With this dataset we will compare the results of the model.
 
 <br>
 
-**Paso 3**: Teniendo los mejores hiperparamentros para el modelo observamos que la medida de la calidad del modelo que estabamos utilizando R2 variaba mucho entre una ejecucion y otra. Por lo tanto decidimos realizar una validacion cruzada, para que con diferentes secciones de Train y Test realice un promedio y nos devuelva un valor mucho mas confiable de R2.
+**Step 2**: We use GridSearch for the optimization of the hyperparameters of the decision tree, we give this model a list of hyperparameter values ​​and the model iterates until it finds the best one.
 
-![Tarifas - Propinas](_src/ml_2.png)
+![Rates - Tips](_src/ml_1.png)
 
 <br>
 
-**Paso 4**: Exportamos el modelo y lo cargamos en un streamlit para poder realizar las predicciones de las tarifas desde ese mismo lugar
+**Step 3**: Having the best hyperparameters for the model, we observed that the measure of the quality of the model that we were using R2 varied a lot between one execution and another. Therefore, we decided to carry out a cross-validation, so that with different sections of Train and Test, it performs an average and returns a much more reliable value of R2.
 
-Link aplicacion para predecir la tarifa: https://mangoru-taxi-trips-amount-prediction-streamlit-app-0z2yr7.streamlitapp.com/
+![Rates - Tips](_src/ml_2.png)
 
-![Tarifas - Propinas](_src/ml_3.png)
+<br>
+
+**Step 4**: We export the model and load it in a streamlit to be able to make the rate predictions from that same place
+
+Link application to predict the rate: https://mangoru-taxi-trips-amount-prediction-streamlit-app-0z2yr7.streamlitapp.com/
+
+![Rates - Tips](_src/ml_3.png)
