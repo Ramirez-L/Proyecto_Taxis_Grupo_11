@@ -1,3 +1,13 @@
+<br>
+
+# Machine Learning
+
+<br>
+
+Decidimos como equipo realizar un modelo de machine learning que pueda predecir los precios aproximados de los viajes. Por lo tanto analizamos varios modelos posibles, regresion lineal, SVM, arbol de desicion y random forest. Al final nos decantamos por arbol de desicion, ya que consideramos que se adapta mejor al conjunto de datos que tenemos.
+
+<br>
+
 # Arbol de desicion
 
 <br>

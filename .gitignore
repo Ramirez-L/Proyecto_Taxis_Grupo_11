@@ -3,3 +3,4 @@ Data/*
 Para_jugar/__pycache__/*
 venv/*
 /docker-hadoop-spark/ 
+README.md
